@@ -1,0 +1,5 @@
+---
+action: install
+actions:
+    - install:
+        description : "Installation DNF Automatic. Basic configuration."

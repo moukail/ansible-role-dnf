@@ -1,0 +1,31 @@
+---
+- name: Install dnf-automatic and kpatch if not installed
+  ansible.builtin.dnf:
+    name:
+      - epel-release
+      - dnf-automatic
+      - kpatch
+      - kpatch-dnf
+    state: present
+
+- name: Configure dnf-automatic
+  ansible.builtin.copy:
+    content: |
+      [commands]
+      apply_updates = yes
+      upgrade_type = security
+      [emitters]
+      emit_via = motd
+    dest: /etc/dnf/automatic.conf
+
+- name: Enable timer
+  ansible.builtin.service:
+    name: dnf-automatic.timer
+    state: started
+    enabled: true
+
+- name: Enable kpatch service
+  ansible.builtin.service:
+    name: kpatch.service
+    state: started
+    enabled: true

@@ -1,0 +1,8 @@
+---
+#########################################################
+## Set action                                          ##
+#########################################################
+
+- name: Set action to install
+  ansible.builtin.set_fact:
+    action: "install"
